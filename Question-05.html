@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Gallery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .left {
+        text-align: left;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .right {
+        text-align: right;
+      }
+
+      img {
+        border: 3px solid black;
+        margin: 10px;
+      }
+
+      figcaption {
+        font-weight: bold;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 align="center">
+      Images with Different Alignments, Sizes, Borders, and Captions
+    </h1>
+
+    <!-- Left Aligned Image -->
+    <div class="left">
+      <figure>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFhrhJEQ383QCvlpQSf660zZnDpxchlHDyLA&s" alt="Small Image" width="150" height="100" />
+        <figcaption>Small Image (Left Aligned)</figcaption>
+      </figure>
+    </div>
+
+    <!-- Center Aligned Image -->
+    <div class="center">
+      <figure>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTea2-MaQT2AwLH24MQiK4czDG-K3zBBn71ZA&s" alt="Medium Image" width="300" height="200" />
+        <figcaption>Medium Image (Center Aligned)</figcaption>
+      </figure>
+    </div>
+
+    <!-- Right Aligned Image -->
+    <div class="right">
+      <figure>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFdo0YcZ6EoMSVEToYQLTWULT_xcgjizsLrw&s" alt="Large Image" width="450" height="300" />
+        <figcaption>Large Image (Right Aligned)</figcaption>
+      </figure>
+    </div>
+  </body>
+</html>
