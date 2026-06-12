@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+</head>
+<body>
+
+    <h1> Student Registration Form</h1>
+
+    <form>
+
+        <table   cellpadding="6">
+
+            <tr>
+                <td>Student Name:</td>
+                <td><input type="text" name="name" placeholder="Enter your name"></td>
+            </tr>
+
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" name="email" placeholder="Enter your email"></td>
+            </tr>
+
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password"></td>
+            </tr>
+
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <input type="radio" name="gender" value="Male"> Male
+                    <input type="radio" name="gender" value="Female"> Female
+                    <input type="radio" name="gender" value="Other"> Other
+                </td>
+            </tr>
+
+            <tr>
+                <td>Hobbies:</td>
+                <td>
+                    <input type="checkbox" name="hobby" value="Reading"> Reading
+                    <input type="checkbox" name="hobby" value="Sports"> Sports
+                    <input type="checkbox" name="hobby" value="Music"> Music
+                </td>
+            </tr>
+
+            <tr>
+                <td>Course:</td>
+                <td>
+                    <select name="course">
+                        <option>Select Course</option>
+                        <option>BCA</option>
+                        <option>B.Sc IT</option>
+                        <option>B.Tech</option>
+                        <option>MCA</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Date of Birth:</td>
+                <td><input type="date" name="dob"></td>
+            </tr>
+
+            <tr>
+                <td>Address:</td>
+                <td>
+                    <textarea name="address" rows="4" cols="25"
+                    placeholder="Enter your address"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Register">
+                    <input type="reset" value="Reset">
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+</body>
+</html>
