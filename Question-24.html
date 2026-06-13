@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day of the Week Finder (Switch-Case)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f3f8;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #9b59b6;
+            padding-bottom: 12px;
+        }
+        .form-group {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #9b59b6;
+        }
+        button {
+            width: 100%;
+            background-color: #9b59b6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        button:hover {
+            background-color: #8e44ad;
+        }
+        .result-box {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fbf0ff;
+            border-left: 5px solid #9b59b6;
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: bold;
+            min-height: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Day of the Week</h2>
+    
+    <div class="form-group">
+        <label for="dayInput">Enter a number (1 - 7):</label>
+        <input type="number" id="dayInput" min="1" max="7" placeholder="e.g., 1 for Monday">
+    </div>
+
+    <button onclick="findDay()">Find Day</button>
+    
+    <div id="outputBox" class="result-box">
+        Result will appear here...
+    </div>
+</div>
+
+<script>
+function findDay() {
+    
+    const inputVal = document.getElementById("dayInput").value;
+    const outputDiv = document.getElementById("outputBox");
+
+     
+    if (inputVal === "") {
+        outputDiv.style.color = "#e74c3c";
+        outputDiv.style.borderColor = "#e74c3c";
+        outputDiv.style.backgroundColor = "#fdf2f2";
+        outputDiv.innerHTML = "Error: Please enter a number.";
+        return;
+    }
+
+    const dayNumber = parseInt(inputVal);
+    let dayName = "";
+    
+     
+    outputDiv.style.color = "#2c3e50";
+    outputDiv.style.borderColor = "#9b59b6";
+    outputDiv.style.backgroundColor = "#fbf0ff";
+
+    
+    switch (dayNumber) {
+        case 1:
+            dayName = "Monday";
+            break;
+        case 2:
+            dayName = "Tuesday";
+            break;
+        case 3:
+            dayName = "Wednesday";
+            break;
+        case 4:
+            dayName = "Thursday";
+            break;
+        case 5:
+            dayName = "Friday";
+            break;
+        case 6:
+            dayName = "Saturday";
+            break;
+        case 7:
+            dayName = "Sunday";
+            break;
+        default:
+           
+            outputDiv.style.color = "#e74c3c";
+            outputDiv.style.borderColor = "#e74c3c";
+            outputDiv.style.backgroundColor = "#fdf2f2";
+            dayName = "Invalid Input! Please enter a number between 1 and 7.";
+            break;
+    }
+
+   
+    if (dayNumber >= 1 && dayNumber <= 7) {
+        outputDiv.innerHTML = `Day ${dayNumber} is ${dayName}`;
+    } else {
+        outputDiv.innerHTML = dayName;
+    }
+}
+</script>
+
+</body>
+</html>
