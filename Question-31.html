@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 31: Digital Clock</title>
+    <style>
+         
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .clock-container {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #38bdf8;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #38bdf8;
+        }
+
+        
+        .clock-display {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: #020617;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8);
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            display: inline-block;
+        }
+
+        .date-display {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock-container">
+        <h2>Digital Clock</h2>
+        <div id="clock" class="clock-display">00:00:00 AM</div>
+        <div id="date" class="date-display">Loading date...</div>
+    </div>
+
+<script>
+    function updateClock() {
+        
+        const now = new Date();
+        
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+
+         
+        hours = hours % 12;
+        hours = hours ? hours : 12;  
+
+         
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+
+        const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+        
+
+        document.getElementById('clock').textContent = timeString;
+
+clock
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
+    }
+
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
