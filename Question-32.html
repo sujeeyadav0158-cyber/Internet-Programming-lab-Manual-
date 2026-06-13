@@ -1,0 +1,270 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 32: Image Slideshow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+       
+        .slideshow-container {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            margin: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: #000;
+        }
+
+        
+        .mySlides {
+            display: none;
+            position: relative;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+
+        
+        .fade {
+            animation-name: fadeAnimation;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes fadeAnimation {
+            from { opacity: 0.4; } 
+            to { opacity: 1; }
+        }
+
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+         
+        .caption-text {
+            color: #f8fafc;
+            font-size: 1rem;
+            padding: 12px 24px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            box-sizing: border-box;
+            font-weight: 500;
+        }
+
+        
+        .controls-panel {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #cbd5e1;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #3b82f6;
+        }
+
+         
+        .auto-btn {
+            margin-top: 15px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            background-color: #3b82f6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .auto-btn.paused {
+            background-color: #10b981;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Interactive Image Slideshow</h2>
+    <div class="subtitle">Experiment 32 — JavaScript Image Array & Timer Controls</div>
+
+    <div class="slideshow-container">
+
+        <div class="mySlides fade">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop" alt="Nature Landscape">
+            <div class="caption-text">Slide 1: Majestic Mountain Landscape</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&auto=format&fit=crop" alt="Forest Fog">
+            <div class="caption-text">Slide 2: Misty Forest Woodlands</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&auto=format&fit=crop" alt="Wooden Bridge Nature">
+            <div class="caption-text">Slide 3: Pathway Thru Lush Green Canopy</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="https://images.unsplash.com/photo-1472214222541-d510753a8707?w=800&auto=format&fit=crop" alt="Valley Sunset">
+            <div class="caption-text">Slide 4: Golden Hour Valley Horizon</div>
+        </div>
+
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <div class="controls-panel">
+        <span class="dot" onclick="jumpToSlide(1)"></span>
+        <span class="dot" onclick="jumpToSlide(2)"></span>
+        <span class="dot" onclick="jumpToSlide(3)"></span>
+        <span class="dot" onclick="jumpToSlide(4)"></span>
+        <br>
+        <button id="toggleBtn" class="auto-btn" onclick="toggleAutoPlay()">Pause AutoPlay</button>
+    </div>
+
+<script>
+     
+    let slideIndex = 1;
+    let autoPlayTimer = null;
+    let isAutoPlaying = true;
+    const slideIntervalDuration = 3000;  
+
+     
+    showSlides(slideIndex);
+    startAutoPlay();
+
+    
+    function showSlides(n) {
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+
+       
+        if (n > slides.length) { slideIndex = 1; }    
+        if (n < 1) { slideIndex = slides.length; }
+
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
+
+        
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+       
+        slides[slideIndex - 1].style.display = "block";  
+        dots[slideIndex - 1].className += " active";
+    }
+
+    
+    function changeSlide(step) {
+        resetTimer();   
+        slideIndex += step;
+        showSlides(slideIndex);
+    }
+
+     
+    function jumpToSlide(index) {
+        resetTimer();  
+        slideIndex = index;
+        showSlides(slideIndex);
+    }
+
+ 
+    function startAutoPlay() {
+        if (isAutoPlaying) {
+            autoPlayTimer = setInterval(function() {
+                slideIndex++;
+                showSlides(slideIndex);
+            }, slideIntervalDuration);
+        }
+    }
+
+    
+    function resetTimer() {
+        if (autoPlayTimer !== null) {
+            clearInterval(autoPlayTimer);
+            startAutoPlay();    
+        }
+    }
+
+ 
+    function toggleAutoPlay() {
+        const btn = document.getElementById("toggleBtn");
+        if (isAutoPlaying) {
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = null;
+            isAutoPlaying = false;
+            btn.textContent = "Start AutoPlay";
+            btn.classList.add("paused");
+        } else {
+            isAutoPlaying = true;
+            btn.textContent = "Pause AutoPlay";
+            btn.classList.remove("paused");
+            startAutoPlay();
+        }
+    }
+</script>
+
+</body>
+</html>
