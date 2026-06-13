@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Tables Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 12px;
+        }
+        .input-section {
+            text-align: center;
+            margin: 25px 0;
+        }
+        label {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 10px;
+        }
+        input[type="number"] {
+            padding: 8px 12px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100px;
+        }
+        button {
+            padding: 8px 20px;
+            font-size: 1em;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .tables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .table-card {
+            background: #fdfdfd;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .table-card h3 {
+            margin-top: 0;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+        .card-for h3 { color: #e67e22; border-color: #f39c12; }
+        .card-while h3 { color: #2ecc71; border-color: #27ae60; }
+        .card-dowhile h3 { color: #9b59b6; border-color: #8e44ad; }
+        
+        .table-content {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Multiplication Tables Generator</h2>
+    
+    <div class="input-section">
+        <label for="numInput">Enter a Number:</label>
+        <input type="number" id="numInput" placeholder="e.g. 5">
+        <button onclick="generateTables()">Generate</button>
+    </div>
+
+    <div id="errorMessage" class="error"></div>
+
+    <div class="tables-grid">
+        <div class="table-card card-for">
+            <h3>Using For Loop</h3>
+            <div id="forLoopOutput" class="table-content">---</div>
+        </div>
+
+        <div class="table-card card-while">
+            <h3>Using While Loop</h3>
+            <div id="whileLoopOutput" class="table-content">---</div>
+        </div>
+
+        <div class="table-card card-dowhile">
+            <h3>Using Do-While Loop</h3>
+            <div id="doWhileLoopOutput" class="table-content">---</div>
+        </div>
+    </div>
+</div>
+
+<script>
+function generateTables() {
+    const inputVal = document.getElementById("numInput").value;
+    const errorDiv = document.getElementById("errorMessage");
+    
+     
+    const forOut = document.getElementById("forLoopOutput");
+    const whileOut = document.getElementById("whileLoopOutput");
+    const doWhileOut = document.getElementById("doWhileLoopOutput");
+
+    
+    if (inputVal === "") {
+        errorDiv.innerText = "Please enter a valid number.";
+        forOut.innerText = "---";
+        whileOut.innerText = "---";
+        doWhileOut.innerText = "---";
+        return;
+    }
+    errorDiv.innerText = "";  
+
+    const num = parseInt(inputVal);
+
+     
+    let forResult = "";
+    for (let i = 1; i <= 10; i++) {
+        forResult += `${num} &times; ${i} = ${num * i}<br>`;
+    }
+    forOut.innerHTML = forResult;
+
+   
+    let whileResult = "";
+    let j = 1;
+    while (j <= 10) {
+        whileResult += `${num} &times; ${j} = ${num * j}<br>`;
+        j++;
+    }
+    whileOut.innerHTML = whileResult;
+
+ 
+    let doWhileResult = "";
+    let k = 1;
+    do {
+        doWhileResult += `${num} &times; ${k} = ${num * k}<br>`;
+        k++;
+    } while (k <= 10);
+    doWhileOut.innerHTML = doWhileResult;
+}
+</script>
+
+</body>
+</html>
