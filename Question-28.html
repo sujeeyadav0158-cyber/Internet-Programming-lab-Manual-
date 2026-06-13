@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Student Object Demonstration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 12px;
+            margin-top: 0;
+        }
+        .concept-note {
+            background-color: #ebf5fb;
+            border-left: 4px solid #2980b9;
+            padding: 12px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+            color: #2c3e50;
+            border-radius: 4px;
+        }
+        .profile-card {
+            background-color: #fafafa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .profile-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        .info-row {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        .label {
+            font-weight: bold;
+            color: #7f8c8d;
+            display: inline-block;
+            width: 140px;
+        }
+        .method-box {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #f1f9f5;
+            border-left: 4px solid #2ecc71;
+            border-radius: 4px;
+            font-style: italic;
+            color: #27ae60;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        button:hover {
+            background-color: #1f618d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Experiment 28: Student Object</h2>
+    
+    <div class="concept-note">
+        <strong>Lab Objective:</strong> Instantiate a structured JavaScript object carrying personal attributes (properties) alongside inline routines (methods), showcasing dynamic document mapping.
+    </div>
+
+    <button onclick="displayStudentData()">Instantiate & Display Object</button>
+
+    <div id="outputContainer" style="display: none;">
+        <div class="profile-card">
+            <div class="profile-header">Student Profile Document</div>
+            
+            <div class="info-row"><span class="label">Full Name:</span> <span id="propName"></span></div>
+            <div class="info-row"><span class="label">Roll Number:</span> <span id="propRoll"></span></div>
+            <div class="info-row"><span class="label">Department:</span> <span id="propDept"></span></div>
+            <div class="info-row"><span class="label">Academic Year:</span> <span id="propYear"></span></div>
+            
+            <div id="methodOutput" class="method-box"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function displayStudentData() {
+         
+        const student = {
+            
+            fullName: "Sujeet Yadav",
+            rollNumber: "R25CA1CA0167",
+            department: "BCA",
+            academicYear: "1st Year",
+            marks: [85, 92, 78, 88, 90],
+
+             
+            getIntroduction: function() {
+                return `Hello! My name is ${this.fullName} from the ${this.department} department.`;
+            },
+ 
+            calculateAverageScore: function() {
+                let total = 0;
+                for (let i = 0; i < this.marks.length; i++) {
+                    total += this.marks[i];
+                }
+                return (total / this.marks.length).toFixed(1);
+            }
+        };
+
+ 
+        document.getElementById("propName").innerText = student.fullName;
+        document.getElementById("propRoll").innerText = student.rollNumber;
+        document.getElementById("propDept").innerText = student.department;
+        document.getElementById("propYear").innerText = student.academicYear;
+
+       
+        const introText = student.getIntroduction();
+        const averageScore = student.calculateAverageScore();
+ 
+        document.getElementById("methodOutput").innerHTML = 
+            `<strong>Execution Result from Object Methods:</strong><br><br>` +
+            `<code>getIntroduction():</code> "${introText}"<br><br>` +
+            `<code>calculateAverageScore():</code> "Calculated Average = ${averageScore}%"`;
+
+         
+        document.getElementById("outputContainer").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
