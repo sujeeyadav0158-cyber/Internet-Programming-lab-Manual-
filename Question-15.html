@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Portfolio</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .header{
+            background: teal;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .portfolio{
+            display: flex;
+            padding: 20px;
+        }
+
+        .box{
+            flex: 1;
+            margin: 10px;
+            padding: 15px;
+            border: 1px solid black;
+        }
+
+        /* Responsive Design */
+        @media(max-width: 768px){
+            .portfolio{
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Portfolio</h1>
+    </div>
+
+    <div class="portfolio">
+        <div class="box">
+            <h2>About Me</h2>
+            <p>Sujeet Yadav </p>
+            <p>Roll No : R25CA1CA0167</p>
+        </div>
+
+        <div class="box">
+            <h2>Skills</h2>
+            <p>HTML, CSS,JS,C, C++,SQL,</p>
+        </div>
+
+        <div class="box">
+            <h2>Contact</h2>
+            <p>s@email.com</p>
+        </div>
+    </div>
+
+</body>
+</html>
