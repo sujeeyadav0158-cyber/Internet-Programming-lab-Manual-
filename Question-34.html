@@ -1,132 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 34: Simple Events</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            padding: 40px;
-            color: #333;
-        }
-        .event-box {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-top: 0;
-            margin-bottom: 25px;
-        }
-        .section {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed #ddd;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .hover-area {
-            background-color: #e74c3c;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .status-text {
-            margin-top: 6px;
-            font-size: 14px;
-            color: #7f8c8d;
-            font-style: italic;
-        }
-    </style>
+    <title>Simple Events</title>
 </head>
-<body>
+<body style="font-family:Arial; padding:20px;">
 
-<div class="event-box">
-    <h2>JavaScript Events</h2>
+<h2>JavaScript Events Example</h2>
 
-    <div class="section">
-        <label>1. Click Event (onclick)</label>
-        <button onclick="clickAction()">Click Button</button>
-        <div id="clickStatus" class="status-text">Button not clicked yet.</div>
-    </div>
+<!-- Click Event -->
+<h3>1. Click Event</h3>
+<button onclick="clickMe()">Click Me</button>
+<p id="c1"></p>
 
-    <div class="section">
-        <label>2 & 3. Mouse Events (onmouseover / onmouseout)</label>
-        <div class="hover-area" onmouseover="mouseInAction()" onmouseout="mouseOutAction()">
-            Move Mouse Across This Box
-        </div>
-        <div id="mouseStatus" class="status-text">Mouse is outside.</div>
-    </div>
-
-    <div class="section">
-        <label>4. Keyboard Event (onkeyup)</label>
-        <input type="text" onkeyup="keyAction(this)" placeholder="Type text here...">
-        <div id="keyStatus" class="status-text">No keys pressed yet.</div>
-    </div>
-
-    <div class="section">
-        <label>5. Change Event (onchange)</label>
-        <select onchange="changeAction(this)">
-            <option value="">Select an option</option>
-            <option value="Red">Red Color</option>
-            <option value="Blue">Blue Color</option>
-            <option value="Green">Green Color</option>
-        </select>
-        <div id="changeStatus" class="status-text">Dropdown choice not changed yet.</div>
-    </div>
+<!-- Mouse Event -->
+<h3>2. Mouse Event</h3>
+<div onmouseover="mouseIn()" onmouseout="mouseOut()"
+     style="background:red; color:white; padding:10px; width:200px;">
+    Hover Me
 </div>
+<p id="c2"></p>
+
+<!-- Keyboard Event -->
+<h3>3. Keyboard Event</h3>
+<input type="text" onkeyup="keyPress(this)">
+<p id="c3"></p>
+
+<!-- Change Event -->
+<h3>4. Change Event</h3>
+<select onchange="changeVal(this)">
+    <option>HTML</option>
+    <option>CSS</option>
+    <option>JS</option>
+</select>
+<p id="c4"></p>
 
 <script>
-    function clickAction() {
-        document.getElementById("clickStatus").innerText = "Status: Button was successfully clicked!";
-    }
+function clickMe() {
+    document.getElementById("c1").innerHTML = "Button Clicked!";
+}
 
-    function mouseInAction() {
-        document.getElementById("mouseStatus").innerText = "Status: Mouse entered the box container.";
-    }
+function mouseIn() {
+    document.getElementById("c2").innerHTML = "Mouse Inside";
+}
 
-    function mouseOutAction() {
-        document.getElementById("mouseStatus").innerText = "Status: Mouse left the box container.";
-    }
+function mouseOut() {
+    document.getElementById("c2").innerHTML = "Mouse Outside";
+}
 
-    function keyAction(inputElement) {
-        document.getElementById("keyStatus").innerText = "Current Value: " + inputElement.value;
-    }
+function keyPress(e) {
+    document.getElementById("c3").innerHTML = e.value;
+}
 
-    function changeAction(selectElement) {
-        if (selectElement.value !== "") {
-            document.getElementById("changeStatus").innerText = "Selected Pointer: " + selectElement.value;
-        } else {
-            document.getElementById("changeStatus").innerText = "Dropdown choice not changed yet.";
-        }
-    }
+function changeVal(e) {
+    document.getElementById("c4").innerHTML = e.value;
+}
 </script>
 
 </body>

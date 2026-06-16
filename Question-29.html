@@ -1,282 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 29: JavaScript Array Operations</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 30px;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-top: 0;
-            border-bottom: 3px solid #16a085;
-            padding-bottom: 12px;
-        }
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        .panel {
-            background-color: #fdfdfd;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 20px;
-        }
-        .panel h3 {
-            margin-top: 0;
-            color: #34495e;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.9em;
-        }
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .btn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            color: white;
-            font-size: 0.9em;
-            transition: opacity 0.2s;
-        }
-        button:hover { opacity: 0.9; }
-        .btn-add { background-color: #2ecc71; }
-        .btn-access { background-color: #f1c40f; color: #333; }
-        .btn-update { background-color: #3498db; }
-        .btn-delete { background-color: #e74c3c; }
-
-        .array-display-box {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1em;
-            text-align: center;
-            word-wrap: break-word;
-        }
-        .visual-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .visual-list li {
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            font-family: monospace;
-        }
-        .index-tag {
-            background: #16a085;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.8em;
-        }
-        .status-msg {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 4px;
-            font-weight: 500;
-            font-size: 0.95em;
-            display: none;
-        }
-    </style>
+    <title>Simple Array Operations</title>
 </head>
 <body>
 
-<div class="container">
-    <h2>Experiment 29: Array Operations Console</h2>
-    
-    <h3>Current Raw Array State:</h3>
-    <div class="array-display-box" id="rawArrayDisplay">[]</div>
+<h2>Array Operations</h2>
 
-    <div class="dashboard">
-        <div class="panel">
-            <h3>Manage Elements</h3>
-            
-            <div class="form-group">
-                <label for="elementInput">Element Value:</label>
-                <input type="text" id="elementInput" placeholder="e.g., Apple">
-            </div>
-            
-            <div class="form-group">
-                <label for="indexInput">Index Position ($i$):</label>
-                <input type="number" id="indexInput" placeholder="e.g., 0" min="0">
-            </div>
+<input type="text" id="item" placeholder="Enter item">
+<input type="number" id="index" placeholder="Enter index">
 
-            <div class="btn-grid">
-                <button class="btn-add" onclick="createElement()">Create (Push)</button>
-                <button class="btn-access" onclick="accessElement()">Access (Read)</button>
-                <button class="btn-update" onclick="modifyElement()">Modify (Update)</button>
-                <button class="btn-delete" onclick="deleteElement()">Delete (Splice)</button>
-            </div>
-            
-            <div id="statusConsole" class="status-msg"></div>
-        </div>
+<br><br>
 
-        <div class="panel">
-            <h3>Indexed List View</h3>
-            <ul class="visual-list" id="indexedListDisplay"></ul>
-        </div>
-    </div>
-</div>
+<button onclick="addItem()">Add</button>
+<button onclick="showItem()">Show</button>
+<button onclick="updateItem()">Update</button>
+<button onclick="deleteItem()">Delete</button>
+
+<h3>Array:</h3>
+<p id="output"></p>
 
 <script>
-    // Initialize our array with initial elements
-    let myArr = ["HTML", "CSS", "JavaScript"];
+    let arr = ["HTML", "CSS", "JS"];
 
-    // Run once at loading time to show original items
-    refreshUI();
-
-    // Helper to refresh screen rendering anytime data updates
-    function refreshUI() {
-        document.getElementById("rawArrayDisplay").innerText = JSON.stringify(myArr);
-
-        const listContainer = document.getElementById("indexedListDisplay");
-        listContainer.innerHTML = "";
-
-        if (myArr.length === 0) {
-            listContainer.innerHTML = "<li style='color: #7f8c8d; font-style: italic;'>Array is empty.</li>";
-            return;
-        }
-
-        myArr.forEach((item, index) => {
-            listContainer.innerHTML += `
-                <li>
-                    <span><strong>"${item}"</strong></span>
-                    <span class="index-tag">Index: ${index}</span>
-                </li>
-            `;
-        });
+    function showArray() {
+        document.getElementById("output").innerHTML = arr;
     }
 
-    // Helper to log user messages
-    function displayStatus(msg, isError = false) {
-        const consoleBox = document.getElementById("statusConsole");
-        consoleBox.style.display = "block";
-        if (isError) {
-            consoleBox.style.backgroundColor = "#fdf2f2";
-            consoleBox.style.color = "#c0392b";
-            consoleBox.style.borderLeft = "4px solid #e74c3c";
-        } else {
-            consoleBox.style.backgroundColor = "#f4fbf7";
-            consoleBox.style.color = "#27ae60";
-            consoleBox.style.borderLeft = "4px solid #2ecc71";
-        }
-        consoleBox.innerHTML = msg;
+    function addItem() {
+        let val = document.getElementById("item").value;
+        arr.push(val);
+        showArray();
     }
 
-    // 1. CREATE: Add item to the end of the array
-    function createElement() {
-        const value = document.getElementById("elementInput").value.trim();
-        if (value === "") {
-            displayStatus("Error: Enter an Element Value first.", true);
-            return;
-        }
-        myArr.push(value);
-        displayStatus(`Created: Added "${value}" to the array.`);
-        document.getElementById("elementInput").value = "";
-        refreshUI();
+    function showItem() {
+        let i = document.getElementById("index").value;
+        alert(arr[i]);
     }
 
-    // 2. ACCESS: Read item from specific index
-    function accessElement() {
-        const indexStr = document.getElementById("indexInput").value;
-        if (indexStr === "") {
-            displayStatus("Error: Please provide an Index Position to access.", true);
-            return;
-        }
-        const idx = parseInt(indexStr);
-        if (idx < 0 || idx >= myArr.length) {
-            displayStatus(`Error: Index ${idx} is out of bounds.`, true);
-            return;
-        }
-        displayStatus(`Accessed: Item at index [${idx}] is <strong>"${myArr[idx]}"</strong>`);
+    function updateItem() {
+        let i = document.getElementById("index").value;
+        let val = document.getElementById("item").value;
+        arr[i] = val;
+        showArray();
     }
 
-    // 3. MODIFY: Update item value at a specific index
-    function modifyElement() {
-        const indexStr = document.getElementById("indexInput").value;
-        const value = document.getElementById("elementInput").value.trim();
-        
-        if (indexStr === "" || value === "") {
-            displayStatus("Error: Provide both Element Value and Index Position to modify.", true);
-            return;
-        }
-        const idx = parseInt(indexStr);
-        if (idx < 0 || idx >= myArr.length) {
-            displayStatus(`Error: Index ${idx} is out of bounds.`, true);
-            return;
-        }
-        const oldVal = myArr[idx];
-        myArr[idx] = value;
-        displayStatus(`Modified: Changed index [${idx}] from "${oldVal}" to "${value}".`);
-        document.getElementById("elementInput").value = "";
-        refreshUI();
+    function deleteItem() {
+        let i = document.getElementById("index").value;
+        arr.splice(i, 1);
+        showArray();
     }
 
-    // 4. DELETE: Remove item securely without leaving gaps
-    function deleteElement() {
-        const indexStr = document.getElementById("indexInput").value;
-        if (indexStr === "") {
-            displayStatus("Error: Provide an Index Position to remove.", true);
-            return;
-        }
-        const idx = parseInt(indexStr);
-        if (idx < 0 || idx >= myArr.length) {
-            displayStatus(`Error: Index ${idx} is out of bounds.`, true);
-            return;
-        }
-        // splice cleanly removes the slot and shifts other values up
-        const removed = myArr.splice(idx, 1);
-        displayStatus(`Deleted: Removed "${removed}" from index [${idx}].`);
-        document.getElementById("indexInput").value = "";
-        refreshUI();
-    }
+    showArray();
 </script>
 
 </body>

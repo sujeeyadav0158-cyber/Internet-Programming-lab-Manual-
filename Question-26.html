@@ -1,226 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factorial & Fibonacci Series Generator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
-            margin: 0;
-            padding: 40px 20px;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 25px;
-        }
-        .card {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border-top: 4px solid #3498db;
-        }
-        .card.fibonacci {
-            border-top-color: #2ecc71;
-        }
-        h2 {
-            margin-top: 0;
-            color: #2c3e50;
-            font-size: 1.4em;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 15px;
-        }
-        input:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-        .fibonacci input:focus {
-            border-color: #2ecc71;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-        .btn-factorial {
-            background-color: #3498db;
-        }
-        .btn-factorial:hover {
-            background-color: #2980b9;
-        }
-        .btn-fibonacci {
-            background-color: #2ecc71;
-        }
-        .btn-fibonacci:hover {
-            background-color: #27ae60;
-        }
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            border-left: 4px solid #bdc3c7;
-            min-height: 40px;
-            font-size: 15px;
-            word-wrap: break-word;
-        }
-        .card .result-box.success {
-            background-color: #e8f4fd;
-            border-left-color: #3498db;
-        }
-        .card.fibonacci .result-box.success {
-            background-color: #eafaf1;
-            border-left-color: #2ecc71;
-        }
-        .result-box.error {
-            background-color: #fdf2f2;
-            border-left-color: #e74c3c;
-            color: #c0392b;
-            font-weight: bold;
-        }
-    </style>
+    <title>Factorial & Fibonacci</title>
 </head>
 <body>
 
-<div class="container">
-    <h1>Math Operations Lab Dashboard</h1>
+<h2>Factorial & Fibonacci Program</h2>
+ 
+<h3>Factorial</h3>
+<input type="number" id="num" placeholder="Enter number">
+<button onclick="factorial()">Find Factorial</button>
+<p id="factResult"></p>
 
-    <div class="grid">
-        <div class="card">
-            <h2>1. Find Factorial</h2>
-            <div class="form-group">
-                <label for="factorialInput">Enter a non-negative integer ($n$):</label>
-                <input type="number" id="factorialInput" min="0" max="170" placeholder="e.g., 5">
-            </div>
-            <button class="button btn-factorial" onclick="computeFactorial()">Calculate Factorial</button>
-            <div id="factorialResult" class="result-box">Result will appear here...</div>
-        </div>
-
-        <div class="card fibonacci">
-            <h2>2. Fibonacci Series</h2>
-            <div class="form-group">
-                <label for="fibonacciInput">Enter number of terms ($t$):</label>
-                <input type="number" id="fibonacciInput" min="1" max="100" placeholder="e.g., 8">
-            </div>
-            <button class="button btn-fibonacci" onclick="computeFibonacci()">Generate Series</button>
-            <div id="fibonacciResult" class="result-box">Series will appear here...</div>
-        </div>
-    </div>
-</div>
+ 
+<h3>Fibonacci</h3>
+<input type="number" id="terms" placeholder="Enter terms">
+<button onclick="fibonacci()">Generate Series</button>
+<p id="fibResult"></p>
 
 <script>
-     
-    function computeFactorial() {
-        const inputElement = document.getElementById("factorialInput");
-        const resultDiv = document.getElementById("factorialResult");
-        const valueStr = inputElement.value;
+function factorial() {
+    let n = document.getElementById("num").value;
+    let fact = 1;
 
-         
-        resultDiv.className = "result-box";
-
-        if (valueStr === "") {
-            resultDiv.className = "result-box error";
-            resultDiv.innerHTML = "Error: Please enter a number.";
-            return;
-        }
-
-        const num = parseInt(valueStr);
-
-        if (num < 0) {
-            resultDiv.className = "result-box error";
-            resultDiv.innerHTML = "Error: Factorial is not defined for negative numbers.";
-            return;
-        }
-        
-        if (num > 170) {
-            resultDiv.className = "result-box error";
-            resultDiv.innerHTML = "Error: Value too large! (JavaScript handles up to 170 before returning Infinity).";
-            return;
-        }
-
-       
-        let factorial = 1;
-        for (let i = 1; i <= num; i++) {
-            factorial *= i;
-        }
-
-        resultDiv.className = "result-box success";
-        resultDiv.innerHTML = `<strong>${num}!</strong> = ${factorial.toLocaleString()}`;
+    for (let i = 1; i <= n; i++) {
+        fact = fact * i;
     }
 
-    
-    function computeFibonacci() {
-        const inputElement = document.getElementById("fibonacciInput");
-        const resultDiv = document.getElementById("fibonacciResult");
-        const valueStr = inputElement.value;
+    document.getElementById("factResult").innerHTML = "Factorial = " + fact;
+}
 
-   
-        resultDiv.className = "result-box";
+function fibonacci() {
+    let n = document.getElementById("terms").value;
 
-        if (valueStr === "") {
-            resultDiv.className = "result-box error";
-            resultDiv.innerHTML = "Error: Please enter the number of terms.";
-            return;
-        }
+    let a = 0, b = 1;
+    let result = "";
 
-        const terms = parseInt(valueStr);
-
-        if (terms <= 0) {
-            resultDiv.className = "result-box error";
-            resultDiv.innerHTML = "Error: Terms must be a positive integer greater than 0.";
-            return;
-        }
-
-        let series = [];
-        let t1 = 0, t2 = 1;
-
-        for (let i = 1; i <= terms; i++) {
-            series.push(t1);
-            let nextTerm = t1 + t2;
-            t1 = t2;
-            t2 = nextTerm;
-        }
-
-        resultDiv.className = "result-box success";
-        resultDiv.innerHTML = `<strong>First ${terms} terms:</strong><br><br>${series.join(", ")}`;
+    for (let i = 1; i <= n; i++) {
+        result = result + a + " ";
+        let next = a + b;
+        a = b;
+        b = next;
     }
+
+    document.getElementById("fibResult").innerHTML =
+        "Fibonacci Series: " + result;
+}
 </script>
 
 </body>
+</html>
 </html>

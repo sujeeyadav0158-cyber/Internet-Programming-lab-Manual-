@@ -1,132 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment 33: Simple Form Validation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            padding: 40px;
-        }
-        .form-box {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-top: 0;
-        }
-        .field-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            background-color: #2ecc71;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #27ae60;
-        }
-    </style>
+    <title>Form Validation</title>
 </head>
-<body>
+<body style="font-family:Arial; padding:30px; max-width:400px; margin:auto;">
 
-<div class="form-box">
-    <h2>Registration Form</h2>
-    <form onsubmit="return validateForm()">
-        <div class="field-group">
-            <label>Full Name:</label>
-            <input type="text" id="name">
-        </div>
-        
-        <div class="field-group">
-            <label>Email Address:</label>
-            <input type="text" id="email">
-        </div>
-        
-        <div class="field-group">
-            <label>Mobile Number:</label>
-            <input type="text" id="mobile" maxlength="10">
-        </div>
-        
-        <div class="field-group">
-            <label>Password:</label>
-            <input type="password" id="password">
-        </div>
-        
-        <div class="field-group">
-            <label>Date of Birth:</label>
-            <input type="date" id="dob">
-        </div>
-        
-        <button type="submit">Submit</button>
-    </form>
-</div>
+<h2 style="text-align:center;">Registration Form</h2>
+
+<form onsubmit="return validateForm()">
+
+    Name:<br>
+    <input type="text" id="name"><br><br>
+
+    Email:<br>
+    <input type="text" id="email"><br><br>
+
+    Mobile:<br>
+    <input type="text" id="mobile" maxlength="10"><br><br>
+
+    Password:<br>
+    <input type="password" id="password"><br><br>
+
+    DOB:<br>
+    <input type="date" id="dob"><br><br>
+
+    <button type="submit" style="width:100%; padding:10px; background:green; color:white;">
+        Submit
+    </button>
+
+</form>
 
 <script>
-    function validateForm() {
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const mobile = document.getElementById("mobile").value.trim();
-        const password = document.getElementById("password").value;
-        const dob = document.getElementById("dob").value;
+function validateForm() {
 
-        const nameRegex = /^[a-zA-Z\s]{3,}$/;
-        if (!nameRegex.test(name)) {
-            alert("Please enter a valid name (at least 3 alphabetic characters).");
-            return false;
-        }
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let mobile = document.getElementById("mobile").value.trim();
+    let password = document.getElementById("password").value;
+    let dob = document.getElementById("dob").value;
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address.");
-            return false;
-        }
-
-        const mobileRegex = /^[0-9]{10}$/;
-        if (!mobileRegex.test(mobile)) {
-            alert("Mobile number must be exactly 10 digits.");
-            return false;
-        }
-
-        if (password.length < 8) {
-            alert("Password must be at least 8 characters long.");
-            return false;
-        }
-
-        if (dob === "") {
-            alert("Please select your Date of Birth.");
-            return false;
-        }
-
-        alert("Form validated successfully!");
-        return true;
+    
+    if (name.length < 3) {
+        alert("Name must be at least 3 characters");
+        return false;
     }
+
+     
+    if (!email.includes("@") || !email.includes(".")) {
+        alert("Enter valid email");
+        return false;
+    }
+
+    
+    if (mobile.length != 10 || isNaN(mobile)) {
+        alert("Enter valid 10 digit mobile number");
+        return false;
+    }
+ 
+    if (password.length < 6) {
+        alert("Password must be at least 6 characters");
+        return false;
+    }
+
+ 
+    if (dob == "") {
+        alert("Select Date of Birth");
+        return false;
+    }
+
+    alert("Form Submitted Successfully!");
+    return true;
+}
 </script>
 
 </body>

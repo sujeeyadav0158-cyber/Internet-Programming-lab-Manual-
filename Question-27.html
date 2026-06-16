@@ -1,194 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Functions with Parameters and Return Values</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 30px;
-            color: #333;
-        }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            border-bottom: 2px solid #e74c3c;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        .code-concept {
-            background-color: #fdf6f0;
-            border-left: 4px solid #e67e22;
-            padding: 12px;
-            margin-bottom: 25px;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .calc-box {
-            background: #fafafa;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 20px;
-        }
-        .calc-box h3 {
-            margin-top: 0;
-            color: #34495e;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.9em;
-        }
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.95em;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background-color: #c0392b;
-        }
-        .result {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #eef7f2;
-            border-left: 4px solid #2ecc71;
-            font-weight: bold;
-            font-size: 0.95em;
-            color: #27ae60;
-        }
-    </style>
+    <title>Simple Area Calculator</title>
 </head>
 <body>
 
-<div class="container">
-    <h2>Experiment 27: JS Functions Demonstration</h2>
-    
-    <div class="code-concept">
-        <strong>Lab Concept:</strong> This page utilizes two distinct JavaScript functions that accept numerical variables as <em>parameters</em>, perform operations, and use the <code>return</code> statement to hand back the computational output.
-    </div>
+<h2>Area Calculator</h2>
 
-    <div class="grid">
-        <div class="calc-box">
-            <h3>1. Area of a Rectangle</h3>
-            <div class="form-group">
-                <label for="rectLength">Length:</label>
-                <input type="number" id="rectLength" placeholder="Enter length" min="0">
-            </div>
-            <div class="form-group">
-                <label for="rectWidth">Width:</label>
-                <input type="number" id="rectWidth" placeholder="Enter width" min="0">
-            </div>
-            <button onclick="handleRectangle()">Calculate Area</button>
-            <div id="rectResult" class="result" style="display:none;"></div>
-        </div>
+ 
+<h3>Rectangle</h3>
+Length: <input type="number" id="len"><br><br>
+Width: <input type="number" id="wid"><br><br>
+<button onclick="rect()">Calculate Rectangle</button>
+<p id="r1"></p>
 
-        <div class="calc-box">
-            <h3>2. Area of a Circle</h3>
-            <div class="form-group">
-                <label for="circleRadius">Radius ($r$):</label>
-                <input type="number" id="circleRadius" placeholder="Enter radius" min="0">
-            </div>
-            <button onclick="handleCircle()">Calculate Area</button>
-            <div id="circleResult" class="result" style="display:none;"></div>
-        </div>
-    </div>
-</div>
+ 
+<h3>Circle</h3>
+Radius: <input type="number" id="rad"><br><br>
+<button onclick="circle()">Calculate Circle</button>
+<p id="r2"></p>
 
 <script>
- 
-    function calculateRectangleArea(length, width) {
-        let area = length * width;
-        return area;  }
-
-  
-    function calculateCircleArea(radius) {
-        let area = Math.PI * radius * radius;
-        return area;   
-    }
-
-
- 
-    function handleRectangle() {
-        const l = parseFloat(document.getElementById("rectLength").value);
-        const w = parseFloat(document.getElementById("rectWidth").value);
-        const output = document.getElementById("rectResult");
-
-        if (isNaN(l) || isNaN(w) || l <= 0 || w <= 0) {
-            showError(output, "Please enter valid positive values.");
-            return;
-        }
-
     
-        let result = calculateRectangleArea(l, w);
-
-        output.style.backgroundColor = "#eef7f2";
-        output.style.borderColor = "#2ecc71";
-        output.style.color = "#27ae60";
-        output.innerHTML = `Returned Value: ${result.toFixed(2)} units²`;
-        output.style.display = "block";
+    function rectangleArea(l, w) {
+        return l * w;
     }
 
-    function handleCircle() {
-        const r = parseFloat(document.getElementById("circleRadius").value);
-        const output = document.getElementById("circleResult");
-
-        if (isNaN(r) || r <= 0) {
-            showError(output, "Please enter a valid positive radius.");
-            return;
-        }
-
-        
-        let result = calculateCircleArea(r);
-
-        output.style.backgroundColor = "#eef7f2";
-        output.style.borderColor = "#2ecc71";
-        output.style.color = "#27ae60";
-        output.innerHTML = `Returned Value: ${result.toFixed(2)} units²`;
-        output.style.display = "block";
+    function circleArea(r) {
+        return 3.14 * r * r;
     }
 
-    function showError(element, message) {
-        element.style.backgroundColor = "#fdf2f2";
-        element.style.borderColor = "#e74c3c";
-        element.style.color = "#c0392b";
-        element.innerHTML = message;
-        element.style.display = "block";
+    function rect() {
+        let l = document.getElementById("len").value;
+        let w = document.getElementById("wid").value;
+
+        let result = rectangleArea(l, w);
+        document.getElementById("r1").innerHTML = "Area = " + result;
+    }
+
+    function circle() {
+        let r = document.getElementById("rad").value;
+
+        let result = circleArea(r);
+        document.getElementById("r2").innerHTML = "Area = " + result;
     }
 </script>
 
